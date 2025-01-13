@@ -85,20 +85,11 @@ class ProductGenerator:
     
     def generate_product_text(self, category: str, brand: str) -> Dict[str, str]:
         """Generate product name and description using Claude."""
-        prompt = f"""Create a product name (3-50 characters) and description (50-200 characters) for an automotive storage product.
-Category: {category}
-Brand: {brand}
-
-Requirements:
-- Product name should be concise and descriptive
-- Description should highlight key features and benefits
-- No HTML allowed
-- Avoid special characters
-- Keep it professional and technical
-
-Format the response as:
-Name: [product name]
-Description: [product description]"""
+        # Get prompt template from config
+        prompt = config['prompts']['product_generation'].format(
+            category=category,
+            brand=brand
+        )
 
         response = self.client.messages.create(
             model=MODEL,

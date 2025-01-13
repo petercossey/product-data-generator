@@ -1,34 +1,45 @@
 categories:
-  - "Automotive/Storage/Roof Trays/Alpha Platform"
-  - "Automotive/Storage/Roof Trays/Beta Platform"
-  - "Automotive/Storage/Roof Trays/Platform Accessories"
-  - "Automotive/Storage/Roof Trays/Roof Top Tents"
-  - "Automotive/Storage/Roof Trays/Luggage Bags"
-  - "Automotive/Storage/Roof Trays/Roof Baskets"
-  - "Automotive/Storage/Roof Trays/Roof Boxes"
-  - "Automotive/Storage/Roof Trays/Complete Kits"
-  - "Automotive/Storage/Roof Racks/Cross Bar Roof Racks"
-  - "Automotive/Storage/Roof Racks/Canopy Roof Systems"
-  - "Automotive/Storage/Roof Racks/Load Securing"
-  - "Automotive/Storage/Ute Tub Racks/Sigma-Deck"
-  - "Automotive/Storage/Ute Tub Racks/Sigma-Deck Accessories"
-  - "Automotive/Storage/Sport & Awnings/Awnings"
-  - "Automotive/Storage/Sport & Awnings/Bike Carriers"
-  - "Automotive/Storage/Sport & Awnings/Water Sports"
-  - "Automotive/Storage/Sport & Awnings/Snow Sports"
-  - "Automotive/Storage/Work Solutions/Conduit & Carriers"
-  - "Automotive/Storage/Work Solutions/Complete Ladder Carriers"
-  - "Automotive/Storage/Work Solutions/Ladder Carrier Accessories"
-  - "Automotive/Storage/Work Solutions/Ladder Rack Rails"
-  - "Automotive/Storage/Work Solutions/Ladder & Roof Rack Rollers"
-  - "Automotive/Storage/Spares, Brackets & Components/Brackets"
-  - "Automotive/Storage/Spares, Brackets & Components/Fitting Kits"
-  - "Automotive/Storage/Spares, Brackets & Components/Spare Parts"
-  - "Automotive/Storage/Spares, Brackets & Components/Roof Rack Parts"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Bathroom Shelves"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Double Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Hand Towel Rail & Rings"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Heated Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Robe Hooks"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Single Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Soap Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Soap & Sanitiser Dispenser"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toilet Brush Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toilet Roll Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toothbrush Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Towel Racks"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Tumbler Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Spares & Accessories"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Bowl & Bench Protectors"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Chopping Boards"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Colanders & Baskets"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Drainer Trays"
 
 brands:
-  - "LoadMaster"
-  - "RackTec"
-  - "CargoForce"
-  - "SkyMount"
-  - "TerraRack" 
+  - "Hansa"
+  - "Clark"
+  - "Vertu"
+  - "Vulcan"
+  - "Zumi"
+  - "Everhard"
+  - "Fowler" 
+
+prompts:
+  product_generation: |
+    Create a product name (3-50 characters) and description (50-200 characters) for plumbing, kitchen and bathroom products.
+    Category: {category}
+    Brand: {brand}
+
+    Requirements:
+    - Product name should be concise and descriptive
+    - Description should highlight key features and benefits
+    - No HTML allowed
+    - Avoid special characters
+    - Keep it professional and technical
+
+    Format the response as:
+    Name: [product name]
+    Description: [product description] 
