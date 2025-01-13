@@ -8,9 +8,26 @@ from anthropic import Anthropic
 import slugify
 import asyncio
 from dotenv import load_dotenv
+import yaml
+import argparse
 
 # Load environment variables from .env file
 load_dotenv()
+
+def load_config(config_file='config.yaml'):
+    """Load configuration from YAML file."""
+    try:
+        with open(config_file, 'r') as f:
+            return yaml.safe_load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Configuration file {config_file} not found")
+    except yaml.YAMLError as e:
+        raise ValueError(f"Error parsing configuration file: {e}")
+
+# Load configuration
+config = load_config()
+CATEGORIES = config['categories']
+BRANDS = config['brands']
 
 # Configuration
 ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
@@ -18,44 +35,12 @@ if not ANTHROPIC_API_KEY:
     raise ValueError("Please set ANTHROPIC_API_KEY in your .env file")
 
 MODEL = "claude-3-haiku-20240307"
-BATCH_SIZE = int(os.getenv('BATCH_SIZE', '5'))  # Default to 5 if not specified
-
-# Constants from specification
-BRANDS = ["LoadMaster", "RackTec", "CargoForce", "SkyMount", "TerraRack"]
-
-CATEGORIES = [
-    "Automotive/Storage/Roof Trays/Alpha Platform",
-    "Automotive/Storage/Roof Trays/Beta Platform",
-    "Automotive/Storage/Roof Trays/Platform Accessories",
-    "Automotive/Storage/Roof Trays/Roof Top Tents",
-    "Automotive/Storage/Roof Trays/Luggage Bags",
-    "Automotive/Storage/Roof Trays/Roof Baskets",
-    "Automotive/Storage/Roof Trays/Roof Boxes",
-    "Automotive/Storage/Roof Trays/Complete Kits",
-    "Automotive/Storage/Roof Racks/Cross Bar Roof Racks",
-    "Automotive/Storage/Roof Racks/Canopy Roof Systems",
-    "Automotive/Storage/Roof Racks/Load Securing",
-    "Automotive/Storage/Ute Tub Racks/Sigma-Deck",
-    "Automotive/Storage/Ute Tub Racks/Sigma-Deck Accessories",
-    "Automotive/Storage/Sport & Awnings/Awnings",
-    "Automotive/Storage/Sport & Awnings/Bike Carriers",
-    "Automotive/Storage/Sport & Awnings/Water Sports",
-    "Automotive/Storage/Sport & Awnings/Snow Sports",
-    "Automotive/Storage/Work Solutions/Conduit & Carriers",
-    "Automotive/Storage/Work Solutions/Complete Ladder Carriers",
-    "Automotive/Storage/Work Solutions/Ladder Carrier Accessories",
-    "Automotive/Storage/Work Solutions/Ladder Rack Rails",
-    "Automotive/Storage/Work Solutions/Ladder & Roof Rack Rollers",
-    "Automotive/Storage/Spares, Brackets & Components/Brackets",
-    "Automotive/Storage/Spares, Brackets & Components/Fitting Kits",
-    "Automotive/Storage/Spares, Brackets & Components/Spare Parts",
-    "Automotive/Storage/Spares, Brackets & Components/Roof Rack Parts"
-]
 
 class ProductGenerator:
-    def __init__(self):
+    def __init__(self, batch_size: int = 5):
         self.client = Anthropic(api_key=ANTHROPIC_API_KEY)
         self.used_skus = set()
+        self.batch_size = batch_size
         
     def round_to_nearest(self, value: Decimal, base: Decimal) -> Decimal:
         """Round a value to the nearest base (e.g., 0.05)."""
@@ -197,8 +182,13 @@ Description: [product description]"""
             "Product Visible?": "Y"
         }
     
-    async def generate_products(self, num_products: int, output_file: str):
-        """Generate multiple products and save to CSV."""
+    async def generate_products(self, num_products: int = 50, output_file: str = 'generated_products.csv'):
+        """Generate multiple products and save to CSV.
+        
+        Args:
+            num_products: Number of products to generate (default: 50)
+            output_file: Path to output CSV file (default: 'generated_products.csv')
+        """
         print(f"Generating {num_products} products...")
         products = []
         
@@ -211,14 +201,14 @@ Description: [product description]"""
             return batch_products
         
         # Process all products in batches
-        for i in range(0, num_products, BATCH_SIZE):
-            batch_size = min(BATCH_SIZE, num_products - i)
+        for i in range(0, num_products, self.batch_size):
+            batch_size = min(self.batch_size, num_products - i)
             batch_products = await process_batch(batch_size)
             products.extend(batch_products)
             print(f"Generated {len(products)}/{num_products} products")
             
             # Add a small delay between batches to respect rate limits
-            if i + BATCH_SIZE < num_products:
+            if i + self.batch_size < num_products:
                 await asyncio.sleep(1)
         
         # Write to CSV
@@ -232,10 +222,24 @@ Description: [product description]"""
 
 async def main():
     try:
-        generator = ProductGenerator()
+        # Set up argument parser
+        parser = argparse.ArgumentParser(description='Generate product data for automotive storage products')
+        parser.add_argument('--batch-size', type=int, default=5,
+                          help='Number of products to generate in parallel (default: 5)')
+        parser.add_argument('--num-products', type=int, default=50,
+                          help='Total number of products to generate (default: 50)')
+        parser.add_argument('--output-file', type=str, default='generated_products.csv',
+                          help='Path to output CSV file (default: generated_products.csv)')
+        
+        args = parser.parse_args()
+        
+        # Create generator with configured batch size
+        generator = ProductGenerator(batch_size=args.batch_size)
+        
+        # Generate products with configured parameters
         await generator.generate_products(
-            num_products=int(os.getenv('NUM_PRODUCTS', '50')),  # Default to 50 if not specified
-            output_file=os.getenv('OUTPUT_FILE', 'generated_products.csv')  # Default filename if not specified
+            num_products=args.num_products,
+            output_file=args.output_file
         )
     except Exception as e:
         print(f"Error: {str(e)}")
