@@ -1,0 +1,45 @@
+categories:
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Bathroom Shelves"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Double Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Hand Towel Rail & Rings"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Heated Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Robe Hooks"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Single Towel Rails"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Soap Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Soap & Sanitiser Dispenser"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toilet Brush Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toilet Roll Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Toothbrush Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Towel Racks"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Tumbler Holders"
+  - "Plumbing Supplies/Accessories/Bathroom Accessories/Spares & Accessories"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Bowl & Bench Protectors"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Chopping Boards"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Colanders & Baskets"
+  - "Plumbing Supplies/Accessories/Kitchen Accessories/Drainer Trays"
+
+brands:
+  - "Hansa"
+  - "Clark"
+  - "Vertu"
+  - "Vulcan"
+  - "Zumi"
+  - "Everhard"
+  - "Fowler" 
+
+prompts:
+  product_generation: |
+    Create a product name (3-50 characters) and description (50-200 characters) for plumbing, kitchen and bathroom products.
+    Category: {category}
+    Brand: {brand}
+
+    Requirements:
+    - Product name should be concise and descriptive
+    - Description should highlight key features and benefits
+    - No HTML allowed
+    - Avoid special characters
+    - Keep it professional and technical
+
+    Format the response as:
+    Name: [product name]
+    Description: [product description] 

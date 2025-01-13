@@ -1,4 +1,23 @@
-# Product Data Generation Specification
+# Product Generator Specification
+
+## Configuration
+
+The product generator uses two configuration sources:
+1. Environment variables (`.env` file)
+2. YAML configuration (`config.yaml` file)
+
+### Environment Variables
+- `ANTHROPIC_API_KEY`: Required. Your Anthropic API key for Claude
+- `BATCH_SIZE`: Optional. Number of products to generate in parallel (default: 5)
+- `NUM_PRODUCTS`: Optional. Total number of products to generate (default: 50)
+- `OUTPUT_FILE`: Optional. Path to output CSV file (default: 'generated_products.csv')
+
+### YAML Configuration
+The `config.yaml` file contains the following settings:
+- `categories`: List of valid product categories
+- `brands`: List of available product brands
+
+## Product Generation Rules
 
 ## Output Requirements
 - Generate x number of products
