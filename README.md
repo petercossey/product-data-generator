@@ -1,6 +1,6 @@
 # Product Data Generator
 
-Generates sample product data for automotive storage products using the Anthropic Claude API. The script creates a CSV file with realistic product names, descriptions, and other attributes according to specified business rules.
+Generates sample product data for the BigCommerce v2 CSV importer. The script creates a CSV file with realistic product names, descriptions, and other attributes according to specified business rules.
 
 ## Setup
 
