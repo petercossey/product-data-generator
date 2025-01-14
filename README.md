@@ -2,6 +2,14 @@
 
 Generates sample product data for the BigCommerce v2 CSV importer. The script creates a CSV file with realistic product names, descriptions, and other attributes according to specified business rules.
 
+## Disclaimer
+
+This program is provided as-is, without any warranties or guarantees of any kind, express or implied. It is intended as a proof of concept only. The authors accept no liability for any data loss or other damages resulting from its use.
+
+## AI Attribution
+
+Significant portions of this codebase were generated with the assistance of AI coding tools. While efforts have been made to verify the code's functionality, users should review and test thoroughly before use in any critical environments.
+
 ## Setup
 
 1. Clone this repository:
